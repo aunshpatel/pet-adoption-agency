@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
@@ -12,7 +10,6 @@ import '../widgets/consts.dart';
 class DetailsPage extends StatefulWidget {
   final Pet pet;
   const DetailsPage({Key? key, required this.pet}) : super(key: key);
-
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -41,30 +38,6 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
       duration: const Duration(seconds: 3),
     );
   }
-
-  /*Path drawStar(Size size) {
-    // Method to convert degrees to radians
-    double degToRad(double deg) => deg * (pi / 180.0);
-
-    const numberOfPoints = 5;
-    final halfWidth = size.width / 2;
-    final externalRadius = halfWidth;
-    final internalRadius = halfWidth / 2.5;
-    final degreesPerStep = degToRad(360 / numberOfPoints);
-    final halfDegreesPerStep = degreesPerStep / 2;
-    final path = Path();
-    final fullAngle = degToRad(360);
-    path.moveTo(size.width, halfWidth);
-
-    for (double step = 0; step < fullAngle; step += degreesPerStep) {
-      path.lineTo(halfWidth + externalRadius * cos(step),
-          halfWidth + externalRadius * sin(step));
-      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
-          halfWidth + internalRadius * sin(step + halfDegreesPerStep));
-    }
-    path.close();
-    return path;
-  }*/
 
   @override
   void dispose() {
@@ -155,25 +128,15 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
                         _confettiController.play();
                       });
 
-                      // Dispatch AdoptPet event with the correct index
-                      // only if the index is valid
                       if (context.read<PetBloc>().state is PetsLoaded) {
                         final currentState = context.read<PetBloc>().state as PetsLoaded;
                         if (currentState.pets.any((element) => element == widget.pet)) {
                           final index = currentState.pets.indexOf(widget.pet);
                           context.read<PetBloc>().add(AdoptPet(index));
                         } else {
-                          // Handle the case where the pet is not found in the current state
-                          // (e.g., show an error message)
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Pet not found.'),
-                            ),
-                          );
+                          commonAlertBox(context, 'WARNING!', 'Pet not found!');
                         }
                       }
-
-                      // Simulate a short delay for demonstration
                       await Future.delayed(const Duration(seconds: 1));
 
                       commonAlertBox(context, 'Adoption Successful!', 'You have adopted ${widget.pet.name}!');
@@ -188,12 +151,11 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
             child: ConfettiWidget(
               confettiController: _confettiController,
               blastDirectionality: BlastDirectionality.explosive,
-              // blastDirection: pi / 2,
               shouldLoop: true,
-              // createParticlePath: drawStar,
-              emissionFrequency: 0, // how often it should emit
-              numberOfParticles: 500, // number of particles to emit in one emission
-              gravity: 0.1, // gravity - or fall speed
+
+              emissionFrequency: 0,
+              numberOfParticles: 500,
+              gravity: 0.1,
             ),
           )
         ],

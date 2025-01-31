@@ -15,7 +15,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     });
 
     on<AdoptPet>((event, emit) {
-      if (state is PetsLoaded) { // Check if the current state is PetsLoaded
+      if (state is PetsLoaded) {
         List<Pet> updatedPets = List.from((state as PetsLoaded).pets);
         updatedPets[event.index].isAdopted = true;
         _saveAdoptedPet(updatedPets[event.index]);
@@ -24,7 +24,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     });
 
     on<SearchPets>((event, emit) async{
-      if (state is PetsLoaded) { // Check if the current state is PetsLoaded
+      if (state is PetsLoaded) {
         List<Pet> allPets = await _fetchPetData();
         List<Pet> filteredPets;
         if(event.query.isEmpty){
@@ -38,7 +38,6 @@ class PetBloc extends Bloc<PetEvent, PetState> {
     });
   }
 
-  // Replace with actual data fetching logic
   Future<List<Pet>> _fetchPetData() async {
     return [
       Pet(name: 'Luna', animalType:'Cat', breed:'Ragdoll Cat', image: 'assets/images/ragdoll_cat.jpeg', age: 3, price: 200),

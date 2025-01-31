@@ -79,7 +79,6 @@ class _HomePageState extends State<HomePage> {
                       },
                     );
                   } else if (state is PetsUpdated) {
-                    // Handle updated pet list (e.g., after adoption)
                     return ListView.builder(
                       itemCount: state.pets.length,
                       itemBuilder: (context, index) {
@@ -124,10 +123,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Custom page transition function
   Route _createCustomRoute(Widget page) {
     return PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: 600), // Adjust duration
+      transitionDuration: Duration(milliseconds: 600),
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
