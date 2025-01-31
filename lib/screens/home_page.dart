@@ -61,14 +61,17 @@ class _HomePageState extends State<HomePage> {
                                 Text('${pet.age} years old', style:TextStyle(fontWeight: FontWeight.w500,)),
                               ],
                             ),
-                            leading: Image.asset(pet.image,width: 80,height: 80,),
+                            leading: Hero(
+                                tag: 'petImage - ${pet.name}',
+                                child: ClipRRect(
+                                  child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
+                                )
+                            ),
                             trailing: pet.isAdopted ? const Icon(Icons.check_circle, color: Colors.grey) : null,
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => DetailsPage(pet: pet),
-                                ),
+                                _createCustomRoute(DetailsPage(pet: pet)),
                               );
                             },
                           ),
@@ -91,16 +94,19 @@ class _HomePageState extends State<HomePage> {
                               Text('${pet.age} years old', style:TextStyle(fontWeight: FontWeight.w500,)),
                             ],
                           ),
-                          leading: Image.asset(pet.image,width: 80,height: 90,),
+                          leading: Hero(
+                            tag: 'petImage - ${pet.name}',
+                            child: ClipRRect(
+                              child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
+                            )
+                          ),
                           trailing: pet.isAdopted
                               ? const Icon(Icons.check_circle, color: Colors.grey)
                               : null,
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailsPage(pet: pet),
-                              ),
+                              _createCustomRoute(DetailsPage(pet: pet)),
                             );
                           },
                         );
@@ -115,6 +121,28 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  /// Custom page transition function
+  Route _createCustomRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: Duration(milliseconds: 600), // Adjust duration
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
+        var scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeOut),
+        );
+
+        return FadeTransition(
+          opacity: fadeAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: child,
+          ),
+        );
+      },
     );
   }
 }
