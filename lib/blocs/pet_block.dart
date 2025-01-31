@@ -23,20 +23,23 @@ class PetBloc extends Bloc<PetEvent, PetState> {
       }
     });
 
-    on<SearchPets>((event, emit) {
+    on<SearchPets>((event, emit) async{
       if (state is PetsLoaded) { // Check if the current state is PetsLoaded
-        final filteredPets = (state as PetsLoaded).pets
-            .where((pet) =>
-            pet.name.toLowerCase().contains(event.query.toLowerCase()))
-            .toList();
-        emit(PetsLoaded(filteredPets));
+        List<Pet> allPets = await _fetchPetData();
+        List<Pet> filteredPets;
+        if(event.query.isEmpty){
+          filteredPets = allPets;
+          emit(PetsLoaded(filteredPets));
+        }  else{
+          filteredPets = allPets.where((pet) => pet.name.toLowerCase().contains((event.query).toLowerCase())).toList();
+          emit(PetsLoaded(filteredPets));
+        }
       }
     });
   }
 
   // Replace with actual data fetching logic
   Future<List<Pet>> _fetchPetData() async {
-    // Example: Fetch data from a local JSON file or an API
     return [
       Pet(name: 'Luna', animalType:'Cat', breed:'Ragdoll Cat', image: 'assets/images/ragdoll_cat.jpeg', age: 3, price: 200),
       Pet(name: 'Czar', animalType:'Dog', breed:'Siberian Husky', image: 'assets/images/siberian_husky.jpeg', age: 2, price: 400),
