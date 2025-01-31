@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                             )
                           ),
                           trailing: pet.isAdopted
-                              ? const Icon(Icons.check_circle, color: Colors.grey)
+                              ? const Text('Adopted', style:TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
                               : null,
                           onTap: () {
                             Navigator.push(
