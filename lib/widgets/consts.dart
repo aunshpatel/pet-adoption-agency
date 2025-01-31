@@ -15,9 +15,13 @@ const kLightTitleColor = Color(0XFF697489);
 
 const kFontWeightBold = TextStyle(fontWeight: FontWeight.bold,);
 
+const kDarkAndW500Font = TextStyle(fontWeight: FontWeight.w500, color: kDarkTitleColor);
+
+const kLightAndW500Font = TextStyle(fontWeight: FontWeight.w500, color: kLightTitleColor);
+
 const kFontWeight500 = TextStyle(fontWeight: FontWeight.w500,);
 
-const kFont16Weight500 = TextStyle(fontSize:16,fontWeight: FontWeight.w500,);
+const kFont16Weight500 = TextStyle(fontSize:16,fontWeight: FontWeight.w600,);
 
 const kBoldFont18 = TextStyle(fontWeight: FontWeight.bold, fontSize: 18);
 

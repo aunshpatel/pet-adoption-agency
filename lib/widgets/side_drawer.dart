@@ -21,7 +21,7 @@ class _SideDrawerState extends State<SideDrawer> {
             //Home Screen
             DrawerHeader(
               decoration: BoxDecoration(
-                color: kDarkTitleColor,
+                color: kBackgroundColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,12 +29,12 @@ class _SideDrawerState extends State<SideDrawer> {
                 children: [
                   Text(
                     "The Pet Adoption Agency",
-                    style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+                    style: kSideMenuDarkTextStyle
                   ),
                   SizedBox(height: 4),
                   Text(
                     "Find and adopt your pet here!",
-                    style: TextStyle(fontSize: 14, color: Colors.white70),
+                    style: kDarkAndW500Font
                   ),
                 ],
               ),
