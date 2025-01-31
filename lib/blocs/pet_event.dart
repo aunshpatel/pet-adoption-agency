@@ -1,104 +1,4 @@
-// // import '../models/pet_model.dart';
-// //
-// // abstract class PetEvent {}
-// //
-// // class FetchPets extends PetEvent {}
-// //
-// // class AdoptPet extends PetEvent {
-// //   final Pet pet;
-// //
-// //   AdoptPet({required this.pet});
-// // }
-// //
-// // class SearchPets extends PetEvent {
-// //   final String query;
-// //
-// //   const SearchPets({required this.query});
-// //
-// //   @override
-// //   List<Object?> get props => [query];
-// // }
-// //
-// // class ShowAdoptedPets extends PetEvent {}
-//
-// import 'package:equatable/equatable.dart';
-//
-// import '../models/pet_model.dart';
-//
-// abstract class PetEvent extends Equatable {
-//   const PetEvent();
-//
-//   @override
-//   List<Object?> get props => [];
-// }
-//
-// // Event to load all pets (initial or refresh)
-// class LoadPets extends PetEvent {}
-//
-// // Event to adopt a specific pet
-// class AdoptPet extends PetEvent {
-//   final int index; // Consider using Pet object instead of index for clarity
-//
-//   const AdoptPet(this.index);
-//
-//   @override
-//   List<Object?> get props => [index];
-// }
-//
-// // Event to search pets based on a query
-// class SearchPets extends PetEvent {
-//   final String query;
-//
-//   const SearchPets({required this.query});
-//
-//   @override
-//   List<Object?> get props => [query];
-// }
-//
-// // Event to show only adopted pets
-// class ShowAdoptedPets extends PetEvent {}
-
-
-// import 'package:equatable/equatable.dart';
-//
-// import '../models/pet_model.dart';
-//
-// abstract class PetEvent extends Equatable {
-//   const PetEvent();
-//
-//   @override
-//   List<Object?> get props => [];
-// }
-//
-// // Event to load all pets (initial or refresh)
-// class LoadPets extends PetEvent {}
-//
-// // Event to adopt a specific pet
-// class AdoptPet extends PetEvent {
-//   final int index; // Consider using Pet object instead of index for clarity
-//
-//   const AdoptPet(this.index);
-//
-//   @override
-//   List<Object?> get props => [index];
-// }
-//
-// // Event to search pets based on a query
-// class SearchPets extends PetEvent {
-//   final String query;
-//
-//   const SearchPets({required this.query});
-//
-//   @override
-//   List<Object?> get props => [query];
-// }
-//
-// // Event to show only adopted pets
-// class ShowAdoptedPets extends PetEvent {}
-
-import 'package:equatable/equatable.dart';
-
-import '../models/pet_model.dart';
+part of 'pet_bloc.dart';
 
 abstract class PetEvent extends Equatable {
   const PetEvent();
@@ -107,12 +7,10 @@ abstract class PetEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-// Event to load all pets (initial or refresh)
 class LoadPets extends PetEvent {}
 
-// Event to adopt a specific pet
 class AdoptPet extends PetEvent {
-  final int index; // Consider using Pet object instead of index for clarity
+  final int index;
 
   const AdoptPet(this.index);
 
@@ -120,7 +18,6 @@ class AdoptPet extends PetEvent {
   List<Object?> get props => [index];
 }
 
-// Event to search pets based on a query
 class SearchPets extends PetEvent {
   final String query;
 
@@ -130,5 +27,42 @@ class SearchPets extends PetEvent {
   List<Object?> get props => [query];
 }
 
-// Event to show only adopted pets
 class ShowAdoptedPets extends PetEvent {}
+
+abstract class PetState extends Equatable {
+  const PetState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class PetInitial extends PetState {}
+
+class PetsLoading extends PetState {}
+
+class PetsLoaded extends PetState {
+  final List<Pet> pets;
+
+  const PetsLoaded(this.pets);
+
+  @override
+  List<Object?> get props => [pets];
+}
+
+class PetsUpdated extends PetState {
+  final List<Pet> pets;
+
+  const PetsUpdated(this.pets);
+
+  @override
+  List<Object?> get props => [pets];
+}
+
+class PetError extends PetState {
+  final String message;
+
+  const PetError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

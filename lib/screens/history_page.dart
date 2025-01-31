@@ -18,7 +18,7 @@ class _HistoryPageState extends State<HistoryPage> {
   void initState() {
     super.initState();
     // Dispatch the event to load pets and filter for adopted ones
-    context.read<PetBloc>().add(ShowAdoptedPets());
+    context.read<PetBloc>().add(LoadPets());
   }
 
   @override
@@ -49,7 +49,7 @@ class _HistoryPageState extends State<HistoryPage> {
             Expanded(
               child: BlocBuilder<PetBloc, PetState>(
                 builder: (context, state) {
-                  if (state is PetInitial) {
+                  if (state is PetInitial || state is PetsLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is PetsLoaded) {
                     final adoptedPets = state.pets.where((pet) => pet.isAdopted).toList();
@@ -90,8 +90,10 @@ class _HistoryPageState extends State<HistoryPage> {
                         },
                       );
                     }
+                  } else if (state is PetError) {
+                    return Center(child: Text('Error: ${state.message}'));
                   } else {
-                    return const Center(child: Text('No Pet Adopted', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)));
+                    return const Center(child: Text('Unexpected State'));
                   }
                 },
               ),
