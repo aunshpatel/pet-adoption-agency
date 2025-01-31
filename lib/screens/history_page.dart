@@ -17,7 +17,6 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     super.initState();
-    // Dispatch the event to load pets and filter for adopted ones
     context.read<PetBloc>().add(LoadPets());
   }
 
@@ -60,31 +59,34 @@ class _HistoryPageState extends State<HistoryPage> {
                         itemCount: adoptedPets.length,
                         itemBuilder: (context, index) {
                           final pet = adoptedPets[index];
-                          return Padding(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: ListTile(
-                              title: Text(pet.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                              subtitle: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(pet.breed, style: const TextStyle(fontWeight: FontWeight.w500)),
-                                  Text('${pet.age} years old', style: const TextStyle(fontWeight: FontWeight.w500)),
-                                ],
-                              ),
-                              leading: Hero(
-                                tag: 'petImage - ${pet.name}',
-                                child: ClipRRect(
-                                  child: Image.asset(pet.image, width: 80, height: 90, fit: BoxFit.cover),
+                          return Card(
+                            elevation: 6,
+                            child:Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: ListTile(
+                                title: Text(pet.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(pet.breed, style: const TextStyle(fontWeight: FontWeight.w500)),
+                                    Text('${pet.age} years old', style: const TextStyle(fontWeight: FontWeight.w500)),
+                                  ],
                                 ),
+                                leading: Hero(
+                                  tag: 'petImage - ${pet.name}',
+                                  child: ClipRRect(
+                                    child: Image.asset(pet.image, width: 80, height: 90, fit: BoxFit.cover),
+                                  ),
+                                ),
+                                trailing: const Text('Adopted', style: TextStyle(fontSize:16, fontWeight: FontWeight.w500)),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    createCustomRoute(DetailsPage(pet: pet)),
+                                  );
+                                },
                               ),
-                              trailing: const Text('Adopted', style: TextStyle(fontWeight: FontWeight.w500)),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  createCustomRoute(DetailsPage(pet: pet)),
-                                );
-                              },
                             ),
                           );
                         },

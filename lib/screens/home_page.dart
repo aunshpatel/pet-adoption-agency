@@ -52,7 +52,10 @@ class _HomePageState extends State<HomePage> {
                 context.read<PetBloc>().add(SearchPets(query: value));
               },
               decoration: const InputDecoration(
-                hintText: 'Search by name',
+                hintText: 'Search the name',
+                prefixIcon: Icon(Icons.search_rounded),
+                border: OutlineInputBorder(),
+                focusColor: kDarkTitleColor,
               ),
             ),
             const SizedBox(height: 16.0),
@@ -66,31 +69,36 @@ class _HomePageState extends State<HomePage> {
                       itemCount: state.pets.length,
                       itemBuilder: (context, index) {
                         final pet = state.pets[index];
-                        return Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: ListTile(
-                            title: Text(pet.name, style:TextStyle(fontWeight: FontWeight.bold,),),
-                            subtitle: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(pet.breed, style:TextStyle(fontWeight: FontWeight.w500,)),
-                                Text('${pet.age} years old', style:TextStyle(fontWeight: FontWeight.w500,)),
-                              ],
+                        return Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          clipBehavior: Clip.antiAlias,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: ListTile(
+                              title: Text(pet.name, style:TextStyle(fontWeight: FontWeight.bold,),),
+                              subtitle: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(pet.breed, style:TextStyle(fontWeight: FontWeight.w500,)),
+                                  Text('${pet.age} years old', style:TextStyle(fontWeight: FontWeight.w500,)),
+                                ],
+                              ),
+                              leading: Hero(
+                                  tag: 'petImage - ${pet.name}',
+                                  child: ClipRRect(
+                                    child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
+                                  )
+                              ),
+                              trailing: pet.isAdopted ? const Text('Adopted', style:TextStyle(fontSize:16,fontWeight: FontWeight.w500,)) : null,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  createCustomRoute(DetailsPage(pet: pet)),
+                                );
+                              },
                             ),
-                            leading: Hero(
-                                tag: 'petImage - ${pet.name}',
-                                child: ClipRRect(
-                                  child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
-                                )
-                            ),
-                            trailing: pet.isAdopted ? const Text('Adopted', style:TextStyle(fontWeight: FontWeight.w500,)) : null,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                createCustomRoute(DetailsPage(pet: pet)),
-                              );
-                            },
                           ),
                         );
                       },

@@ -15,71 +15,54 @@ class _SideDrawerState extends State<SideDrawer> {
       backgroundColor: kBackgroundColor,
       elevation: 20,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(0),
         child: ListView(
           children: [
             //Home Screen
-            SizedBox(
-              height: 40,
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: kBlackColor,
-                  )
-                )
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: kDarkTitleColor,
               ),
-              child: ListTile(
-                title: const Wrap(
-                  children: [
-                    Text('Welcome to the ', style:kSideMenuLightTextStyle),
-                    Text('Pet Adoption Center App', style:kSideMenuDarkTextStyle,),
-                  ],
-                ),
-              ),
-            ),
-            //Home Screen
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: kBlackColor,
-                  )
-                )
-              ),
-              child: ListTile(
-                title: const Wrap(
-                  children: [
-                    Text('Home ', style:kSideMenuLightTextStyle),
-                    Text('Page', style:kSideMenuDarkTextStyle,),
-                  ],
-                ),
-                onTap: (){
-                  Navigator.pushNamed(context, '/home_page');
-                },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "The Pet Adoption Agency",
+                    style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "Find and adopt your pet here!",
+                    style: TextStyle(fontSize: 14, color: Colors.white70),
+                  ),
+                ],
               ),
             ),
-            //All Listings
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                        color: kBlackColor,
-                      )
-                  )
+            ListTile(
+              leading: Icon(Icons.home, color: kDarkTitleColor, size: 30,),
+              title:  const Wrap(
+                children: [
+                  Text('Home ', style:kSideMenuLightTextStyle),
+                  Text('Page', style:kSideMenuDarkTextStyle,),
+                ],
               ),
-              child: ListTile(
-                title: const Wrap(
-                  children: [
-                    Text('History ', style:kSideMenuLightTextStyle),
-                    Text('Page', style:kSideMenuDarkTextStyle,),
-                  ],
-                ),
-                onTap: (){
-                  Navigator.pushNamed(context, '/history_page');
-                },
+              onTap: (){
+                Navigator.pushNamed(context, '/home_page');
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.history, color: kDarkTitleColor, size:30,),
+              title: const Wrap(
+                children: [
+                  Text('History ', style:kSideMenuLightTextStyle),
+                  Text('Page', style:kSideMenuDarkTextStyle,),
+                ],
               ),
+              onTap: (){
+                Navigator.pushNamed(context, '/history_page');
+              },
             ),
           ],
         ),
