@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/pet_bloc.dart';
+import '../widgets/consts.dart';
+import '../widgets/side_drawer.dart';
 import 'details_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,8 +25,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pet Adoption'),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              color: kDarkTitleColor,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+        centerTitle: true,
+        backgroundColor: kBackgroundColor,
+        title: const Text('Home Page'),
       ),
+      drawer: SideDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

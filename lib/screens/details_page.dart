@@ -49,6 +49,8 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: kBackgroundColor,
         title: Text('Pet Details'),
       ),
       body: Stack(
