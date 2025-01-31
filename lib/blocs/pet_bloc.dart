@@ -41,18 +41,6 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   }
 
   Future<List<Pet>> _fetchPetData() async {
-    // return [
-    //   Pet(name: 'Luna', animalType:'Cat', breed:'Ragdoll Cat', image: 'assets/images/ragdoll_cat.jpeg', age: 3, price: 200),
-    //   Pet(name: 'Czar', animalType:'Dog', breed:'Siberian Husky', image: 'assets/images/siberian_husky.jpeg', age: 2, price: 400),
-    //   Pet(name: 'Rocky', animalType:'Dog', breed:'French Bulldog', image: 'assets/images/french_bulldog.jpeg', age: 2.5, price: 250),
-    //   Pet(name: 'Ginger', animalType:'Dog', breed:'Golden Retriever', image: 'assets/images/golden_retriever.jpg', age: 0.6, price: 350),
-    //   Pet(name: 'Pluto', animalType:'Dog', breed:'Shih Tzu - Poodle Mix', image: 'assets/images/shihpoo.jpeg', age: 3, price: 225),
-    //   Pet(name: 'Giggles', animalType:'Cat', breed:'Siamese Cat', image: 'assets/images/siamese_cat.jpeg', age: 1, price: 500),
-    //   Pet(name: 'Rambo', animalType:'Dog', breed:'Great Dane', image: 'assets/images/great_dane.jpeg', age: 1.5, price: 300),
-    //   Pet(name: 'Garfield', animalType:'Cat', breed:'Persian Cat', image:'assets/images/persian_cat.jpeg', age: 0.5, price: 240),
-    //   Pet(name: 'Missy', animalType:'Cat', breed:'British Shorthair', image:'assets/images/british_shorthair.jpeg', age: 1, price: 300),
-    //   Pet(name: 'Lightning', animalType:'Cat', breed:'Japanese Bobtail', image:'assets/images/japanese_bobtail.jpeg', age: 2, price: 400),
-    // ];
     List<Pet> initialPets = [
       Pet(name: 'Luna', animalType:'Cat', breed:'Ragdoll Cat', image: 'assets/images/ragdoll_cat.jpeg', age: 3, price: 200),
       Pet(name: 'Czar', animalType:'Dog', breed:'Siberian Husky', image: 'assets/images/siberian_husky.jpeg', age: 2, price: 400),
