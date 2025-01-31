@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pet_adoption_center/screens/home_page.dart';
 
-import 'blocs/pet_block.dart';
+import 'blocs/pet_bloc.dart';
 
 void main() {
   runApp(

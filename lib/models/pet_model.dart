@@ -1,10 +1,8 @@
-import 'package:equatable/equatable.dart';
-
-class Pet extends Equatable {
+class Pet {
   final String name;
-  final String image;
   final String animalType;
   final String breed;
+  final String image;
   final double age;
   final double price;
   bool isAdopted;
@@ -19,6 +17,23 @@ class Pet extends Equatable {
     this.isAdopted = false,
   });
 
-  @override
-  List<Object?> get props => [name, animalType, breed, image, age, price, isAdopted];
+  Pet copyWith({
+    String? name,
+    String? animalType,
+    String? breed,
+    String? image,
+    double? age,
+    double? price,
+    bool? isAdopted,
+  }) {
+    return Pet(
+      name: name ?? this.name,
+      animalType: animalType ?? this.animalType,
+      breed: breed ?? this.breed,
+      image: image ?? this.image,
+      age: age ?? this.age,
+      price: price ?? this.price,
+      isAdopted: isAdopted ?? this.isAdopted,
+    );
+  }
 }

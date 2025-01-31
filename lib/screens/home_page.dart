@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/pet_block.dart';
+import '../blocs/pet_bloc.dart';
 import 'details_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
                                 )
                             ),
-                            trailing: pet.isAdopted ? const Icon(Icons.check_circle, color: Colors.grey) : null,
+                            trailing: pet.isAdopted ? const Text('Adopted', style:TextStyle(fontWeight: FontWeight.w500,)) : null,
                             onTap: () {
                               Navigator.push(
                                 context,

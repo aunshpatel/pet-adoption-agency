@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
-import '../blocs/pet_block.dart';
+import '../blocs/pet_bloc.dart';
 import '../models/pet_model.dart';
 import 'package:confetti/confetti.dart';
 
@@ -16,7 +16,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStateMixin {
-  bool _isAdopted = false;
   late AnimationController _controller;
   late Animation<double> _animation;
   late ConfettiController _confettiController;
@@ -121,10 +120,9 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
                   child: MaterialButton(
                     minWidth: 150.0,
                     height: 60.0,
-                    child: _isAdopted ? const Text('Adopted',  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white)) : const Text('Adopt Me',  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white)),
-                    onPressed: _isAdopted ? null : () async {
+                    child: widget.pet.isAdopted ? const Text('Adopted',  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white)) : const Text('Adopt Me',  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white)),
+                    onPressed: widget.pet.isAdopted ? null : () async {
                       setState(() {
-                        _isAdopted = true;
                         _confettiController.play();
                       });
 
