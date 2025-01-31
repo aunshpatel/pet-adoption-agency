@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:photo_view/photo_view.dart';
 import '../blocs/pet_block.dart';
 import '../models/pet_model.dart';
 
@@ -34,13 +34,16 @@ class _DetailsPageState extends State<DetailsPage> {
               Hero(
                 tag: 'petImage - ${widget.pet.name}',
                 child: ClipRRect(
-                  child: Image.asset(
-                    widget.pet.image,
+                  child:SizedBox(
                     height: 300,
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                  ),
-                )
+                    child: PhotoView(
+                      imageProvider: AssetImage(widget.pet.image),
+                      backgroundDecoration: BoxDecoration(color: Colors.transparent),
+                      minScale: PhotoViewComputedScale.contained * 1,
+                      maxScale: PhotoViewComputedScale.covered * 2.0,
+                    ),
+                  )
+                ),
               ),
               const SizedBox(height: 16.0),
               Text('${widget.pet.name}', style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
@@ -48,25 +51,7 @@ class _DetailsPageState extends State<DetailsPage> {
               Text('\$${widget.pet.price}', style: const TextStyle(fontSize: 18.0)),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                // onPressed: _isAdopting ? null : () async {
-                //   setState(() {
-                //     _isAdopting = true;
-                //   });
-                //
-                //   // Call PetBloc to update adoption status
-                //   context.read<PetBloc>().add(AdoptPet(index: widget.pet.index)); // Add missing index parameter
-                //
-                //   // Simulate a short delay for demonstration
-                //   await Future.delayed(const Duration(seconds: 1));
-                //
-                //   // Reset adoption state
-                //   setState(() {
-                //     _isAdopting = false;
-                //   });
-                // },
-                onPressed: _isAdopting
-                    ? null
-                    : () async {
+                onPressed: _isAdopting ? null : () async {
                   setState(() {
                     _isAdopting = true;
                   });
