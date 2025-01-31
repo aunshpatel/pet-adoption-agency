@@ -56,3 +56,24 @@ Future<void> commonAlertBox(BuildContext context, String title, String message) 
     },
   );
 }
+
+Route createCustomRoute(Widget page) {
+  return PageRouteBuilder(
+    transitionDuration: Duration(milliseconds: 600),
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
+      var scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+        CurvedAnimation(parent: animation, curve: Curves.easeOut),
+      );
+
+      return FadeTransition(
+        opacity: fadeAnimation,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: child,
+        ),
+      );
+    },
+  );
+}

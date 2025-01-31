@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pet_adoption_center/screens/history_page.dart';
 import 'package:pet_adoption_center/screens/home_page.dart';
 
 import 'blocs/pet_bloc.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/home_page',
       routes: {
         '/home_page':(context) => const HomePage(),
-        // '/history_page':(context) => const HistoryPage(),
+        '/history_page':(context) => const HistoryPage(),
       },
       // home: const HomePage(),
     );

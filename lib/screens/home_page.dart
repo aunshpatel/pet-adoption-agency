@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                _createCustomRoute(DetailsPage(pet: pet)),
+                                createCustomRoute(DetailsPage(pet: pet)),
                               );
                             },
                           ),
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              _createCustomRoute(DetailsPage(pet: pet)),
+                              createCustomRoute(DetailsPage(pet: pet)),
                             );
                           },
                         );
@@ -140,24 +140,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Route _createCustomRoute(Widget page) {
-    return PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: 600),
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
-        var scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
-          CurvedAnimation(parent: animation, curve: Curves.easeOut),
-        );
-
-        return FadeTransition(
-          opacity: fadeAnimation,
-          child: ScaleTransition(
-            scale: scaleAnimation,
-            child: child,
-          ),
-        );
-      },
-    );
-  }
+  // Route createCustomRoute(Widget page) {
+  //   return PageRouteBuilder(
+  //     transitionDuration: Duration(milliseconds: 600),
+  //     pageBuilder: (context, animation, secondaryAnimation) => page,
+  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  //       var fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
+  //       var scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+  //         CurvedAnimation(parent: animation, curve: Curves.easeOut),
+  //       );
+  //
+  //       return FadeTransition(
+  //         opacity: fadeAnimation,
+  //         child: ScaleTransition(
+  //           scale: scaleAnimation,
+  //           child: child,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 }
