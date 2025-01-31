@@ -13,6 +13,14 @@ const kBackgroundColor = Color(0XFFE3E6EF);
 
 const kLightTitleColor = Color(0XFF697489);
 
+const kFontWeightBold = TextStyle(fontWeight: FontWeight.bold,);
+
+const kFontWeight500 = TextStyle(fontWeight: FontWeight.w500,);
+
+const kFont16Weight500 = TextStyle(fontSize:16,fontWeight: FontWeight.w500,);
+
+const kBoldFont18 = TextStyle(fontWeight: FontWeight.bold, fontSize: 18);
+
 const kSideMenuLightTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 20,

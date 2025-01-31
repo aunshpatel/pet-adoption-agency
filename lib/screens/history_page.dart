@@ -38,7 +38,7 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
         centerTitle: true,
         backgroundColor: kBackgroundColor,
-        title: const Text('History Page'),
+        title: const Text('History Page',),
       ),
       drawer: SideDrawer(),
       body: Padding(
@@ -53,7 +53,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   } else if (state is PetsLoaded) {
                     final adoptedPets = state.pets.where((pet) => pet.isAdopted).toList();
                     if (adoptedPets.isEmpty) {
-                      return const Center(child: Text('No Pet Adopted', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)));
+                      return const Center(child: Text('No Pet Adopted', style: kSideMenuLightTextStyle));
                     } else {
                       return ListView.builder(
                         itemCount: adoptedPets.length,
@@ -64,13 +64,13 @@ class _HistoryPageState extends State<HistoryPage> {
                             child:Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: ListTile(
-                                title: Text(pet.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                title: Text(pet.name, style: kFontWeightBold),
                                 subtitle: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(pet.breed, style: const TextStyle(fontWeight: FontWeight.w500)),
-                                    Text('${pet.age} years old', style: const TextStyle(fontWeight: FontWeight.w500)),
+                                    Text(pet.breed, style: kFontWeight500),
+                                    Text('${pet.age} years old', style: kFontWeight500),
                                   ],
                                 ),
                                 leading: Hero(
@@ -79,7 +79,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                     child: Image.asset(pet.image, width: 80, height: 90, fit: BoxFit.cover),
                                   ),
                                 ),
-                                trailing: const Text('Adopted', style: TextStyle(fontSize:16, fontWeight: FontWeight.w500)),
+                                trailing: const Text('Adopted', style: kFont16Weight500),
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -93,9 +93,9 @@ class _HistoryPageState extends State<HistoryPage> {
                       );
                     }
                   } else if (state is PetError) {
-                    return Center(child: Text('Error: ${state.message}'));
+                    return Center(child: Text('Error: ${state.message}', style: kSideMenuLightTextStyle));
                   } else {
-                    return const Center(child: Text('Unexpected State'));
+                    return const Center(child: Text('Unexpected State', style: kSideMenuLightTextStyle));
                   }
                 },
               ),

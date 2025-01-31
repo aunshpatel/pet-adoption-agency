@@ -76,13 +76,13 @@ class _HomePageState extends State<HomePage> {
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                             child: ListTile(
-                              title: Text(pet.name, style:TextStyle(fontWeight: FontWeight.bold,),),
+                              title: Text(pet.name, style:kFontWeightBold),
                               subtitle: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(pet.breed, style:TextStyle(fontWeight: FontWeight.w500,)),
-                                  Text('${pet.age} years old', style:TextStyle(fontWeight: FontWeight.w500,)),
+                                  Text(pet.breed, style: kFontWeight500),
+                                  Text('${pet.age} years old', style: kFontWeight500),
                                 ],
                               ),
                               leading: Hero(
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
                                   )
                               ),
-                              trailing: pet.isAdopted ? const Text('Adopted', style:TextStyle(fontSize:16,fontWeight: FontWeight.w500,)) : null,
+                              trailing: pet.isAdopted ? const Text('Adopted', style: kFont16Weight500) : null,
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -109,13 +109,13 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         final pet = state.pets[index];
                         return ListTile(
-                          title: Text(pet.name, style:TextStyle(fontWeight: FontWeight.bold,),),
+                          title: Text(pet.name, style:kFontWeightBold),
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(pet.breed, style:TextStyle(fontWeight: FontWeight.w500,)),
-                              Text('${pet.age} years old', style:TextStyle(fontWeight: FontWeight.w500,)),
+                              Text(pet.breed, style: kFontWeight500),
+                              Text('${pet.age} years old', style: kFontWeight500),
                             ],
                           ),
                           leading: Hero(
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                             )
                           ),
                           trailing: pet.isAdopted
-                              ? const Text('Adopted', style:TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+                              ? const Text('Adopted', style: kFont16Weight500)
                               : null,
                           onTap: () {
                             Navigator.push(
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     );
                   } else {
-                    return const Center(child: Text('Something went wrong', style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),));
+                    return const Center(child: Text('Something went wrong', style:kBoldFont18));
                   }
                 },
               ),
@@ -147,25 +147,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // Route createCustomRoute(Widget page) {
-  //   return PageRouteBuilder(
-  //     transitionDuration: Duration(milliseconds: 600),
-  //     pageBuilder: (context, animation, secondaryAnimation) => page,
-  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-  //       var fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
-  //       var scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
-  //         CurvedAnimation(parent: animation, curve: Curves.easeOut),
-  //       );
-  //
-  //       return FadeTransition(
-  //         opacity: fadeAnimation,
-  //         child: ScaleTransition(
-  //           scale: scaleAnimation,
-  //           child: child,
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }
