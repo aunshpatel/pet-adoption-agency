@@ -152,7 +152,6 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
               confettiController: _confettiController,
               blastDirectionality: BlastDirectionality.explosive,
               shouldLoop: true,
-
               emissionFrequency: 0,
               numberOfParticles: 500,
               gravity: 0.1,
