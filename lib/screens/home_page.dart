@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu),
-              color: kDarkTitleColor,
+              color: Theme.of(context).appBarTheme.iconTheme?.color,
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -38,10 +38,13 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         centerTitle: true,
-        backgroundColor: kBackgroundColor,
-        title: const Text('Home Page'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text(
+          'Home Page',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
       ),
-      drawer: SideDrawer(),
+      drawer: const SideDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -51,11 +54,12 @@ class _HomePageState extends State<HomePage> {
               onChanged: (value) {
                 context.read<PetBloc>().add(SearchPets(query: value));
               },
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search the name',
                 prefixIcon: Icon(Icons.search_rounded),
                 border: OutlineInputBorder(),
-                focusColor: kDarkTitleColor,
+                focusColor: Theme.of(context).primaryColor,
+                hintStyle: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
             const SizedBox(height: 16.0),
@@ -65,90 +69,91 @@ class _HomePageState extends State<HomePage> {
                   if (state is PetInitial) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is PetsLoaded) {
-                    return SizedBox(
-                      child: SizedBox(
-                        height: 570,
-                        child: ListView.builder(
-                          itemCount: state.pets.length,
-                          itemBuilder: (context, index) {
-                            final pet = state.pets[index];
-                            return Card(
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                              clipBehavior: Clip.antiAlias,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(15, 0 , 15, 0),
-                                child: GestureDetector(
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.transparent,
-                                                borderRadius:
-                                                BorderRadius.circular(20),
-                                              ),
-                                              height: 230,
-                                            ),
-                                            SizedBox(
-                                              height: 230,
-                                              child: Center(
-                                                child: Hero(
-                                                    tag: 'petImage - ${pet.name}',
-                                                    child: ClipRRect(
-                                                      child: Image.asset(pet.image,fit: BoxFit.cover,),
-                                                    )
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 25),
-                                          child: SizedBox(
-                                            height: 150,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 15),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(pet.name, style: kSideMenuDarkTextStyle),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(pet.breed, style: kLightSemiBoldTextStyle),
-                                                  Text('${pet.age} years old', style:kLightSemiBoldTextStyle),
-                                                  if(pet.isAdopted)...[
-                                                    Text("Adopted", style:kDarkSemiBoldTextStyle),
-                                                  ]
-                                                ],
-                                              ),
+                    return ListView.builder(
+                      itemCount: state.pets.length,
+                      itemBuilder: (context, index) {
+                        final pet = state.pets[index];
+                        return Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          // Set background color based on theme mode
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey[800] // Dark mode background
+                              : Colors.white, // Light mode background
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                            child: GestureDetector(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 230,
+                                      child: Center(
+                                        child: Hero(
+                                          tag: 'petImage - ${pet.name}',
+                                          child: ClipRRect(
+                                            child: Image.asset(
+                                              pet.image,
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
                                       ),
-                                      // if(pet.isAdopted)...[
-                                      //   Text("Adopted", style:kLightSemiBoldTextStyle),
-                                      // ]
-                                    ],
+                                    ),
                                   ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      createCustomRoute(DetailsPage(pet: pet)),
-                                    );
-                                  },
-                                )
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 25),
+                                      child: SizedBox(
+                                        height: 150,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 15),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                pet.name,
+                                                style: Theme.of(context).textTheme.headlineSmall,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                pet.breed,
+                                                style: Theme.of(context).textTheme.bodyMedium,
+                                              ),
+                                              Text(
+                                                '${pet.age} years old',
+                                                style: Theme.of(context).textTheme.bodyMedium,
+                                              ),
+                                              if (pet.isAdopted)
+                                                Text(
+                                                  "Adopted",
+                                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context).colorScheme.secondary,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  createCustomRoute(DetailsPage(pet: pet)),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      },
                     );
                   } else if (state is PetsUpdated) {
                     return ListView.builder(
@@ -158,87 +163,87 @@ class _HomePageState extends State<HomePage> {
                         return Card(
                           elevation: 4,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),  // Rounded corners
-                            side: BorderSide(
-                              color: Colors.blue,  // Border color
-                              width: 2,  // Border width
-                            ),
+                            borderRadius: BorderRadius.circular(16),
                           ),
                           clipBehavior: Clip.antiAlias,
+                          // Set background color based on theme mode
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey[800] // Dark mode background
+                              : Colors.white, // Light mode background
                           child: Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0 , 15, 0),
-                              child: GestureDetector(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Stack(
-                                        children: [
-                                          // Container(
-                                          //   decoration: BoxDecoration(
-                                          //     color: Colors.transparent,
-                                          //     borderRadius:
-                                          //     BorderRadius.circular(20),
-                                          //   ),
-                                          //   height: 230,
-                                          // ),
-                                          SizedBox(
-                                            // height: 230,
-                                            child: Center(
-                                              child: Hero(
-                                                tag: 'petImage - ${pet.name}',
-                                                child: ClipRRect(
-                                                  child: Image.asset(pet.image,fit: BoxFit.cover,),
-                                                )
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 25),
-                                        child: SizedBox(
-                                          height: 150,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 15),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(pet.name, style: kSideMenuDarkTextStyle),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Text(pet.breed, style: kLightSemiBoldTextStyle),
-                                                Text('${pet.age} years old', style:kLightSemiBoldTextStyle),
-                                                if(pet.isAdopted)...[
-                                                  Text("Adopted", style:kDarkSemiBoldTextStyle),
-                                                ]
-                                              ],
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                            child: GestureDetector(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 230,
+                                      child: Center(
+                                        child: Hero(
+                                          tag: 'petImage - ${pet.name}',
+                                          child: ClipRRect(
+                                            child: Image.asset(
+                                              pet.image,
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                    // if(pet.isAdopted)...[
-                                    //   Text("Adopted", style:kLightSemiBoldTextStyle),
-                                    // ]
-                                  ],
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    createCustomRoute(DetailsPage(pet: pet)),
-                                  );
-                                },
-                              )
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 25),
+                                      child: SizedBox(
+                                        height: 150,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 15),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                pet.name,
+                                                style: Theme.of(context).textTheme.headlineSmall,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                pet.breed,
+                                                style: Theme.of(context).textTheme.bodyMedium,
+                                              ),
+                                              Text(
+                                                '${pet.age} years old',
+                                                style: Theme.of(context).textTheme.bodyMedium,
+                                              ),
+                                              if (pet.isAdopted)
+                                                Text(
+                                                  "Adopted",
+                                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context).colorScheme.secondary,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  createCustomRoute(DetailsPage(pet: pet)),
+                                );
+                              },
+                            ),
                           ),
                         );
                       },
                     );
                   } else {
-                    return const Center(child: Text('Something went wrong', style:kBoldFont18));
+                    return const Center(child: Text('Something went wrong'));
                   }
                 },
               ),

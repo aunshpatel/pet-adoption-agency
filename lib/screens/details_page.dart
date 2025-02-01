@@ -31,12 +31,19 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kBackgroundColor,
         elevation: 3,
         centerTitle: true,
-        title: const Text('Pet Details'),
+        title: Text(
+          'Pet Details',
+          style: isDarkMode
+              ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+              : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -71,7 +78,7 @@ class _DetailsPageState extends State<DetailsPage> {
             Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               elevation: 3,
-              color: Colors.white,
+              color: isDarkMode ? Colors.grey[850] : Colors.white,  // Adjust card color based on theme
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -90,7 +97,9 @@ class _DetailsPageState extends State<DetailsPage> {
             /// **Adoption Button**
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: widget.pet.isAdopted ? Colors.grey : Colors.blue,
+                backgroundColor: widget.pet.isAdopted
+                    ? (isDarkMode ? Colors.grey[500] : Colors.grey[700]) // Adjust button color for adopted pets
+                    : (isDarkMode ? Colors.grey[500] : Colors.grey[700]), // Active button color matches the theme
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
               ),
@@ -112,7 +121,7 @@ class _DetailsPageState extends State<DetailsPage> {
               },
               child: Text(
                 widget.pet.isAdopted ? 'Already Adopted' : 'Click to Adopt Me',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: theme.textTheme.bodyLarge?.copyWith(color: Colors.white),
               ),
             ),
 
@@ -132,17 +141,28 @@ class _DetailsPageState extends State<DetailsPage> {
 
   /// **Reusable Detail Row**
   Widget _buildDetailRow(String title, String value) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Text(value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          Text(
+            title,
+            style: isDarkMode
+                ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) // White text in dark mode
+                : theme.textTheme.bodyLarge?.copyWith(color: Colors.black), // Black text in light mode
+          ),
+          Text(
+            value,
+            style: isDarkMode
+                ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) // White text in dark mode
+                : theme.textTheme.bodyLarge?.copyWith(color: Colors.black), // Black text in light mode
+          ),
         ],
       ),
     );
   }
 }
-
-

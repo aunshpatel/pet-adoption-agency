@@ -22,13 +22,16 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu),
-              color: kDarkTitleColor,
+              color: isDarkMode ? Colors.white : kDarkTitleColor,
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -37,8 +40,12 @@ class _HistoryPageState extends State<HistoryPage> {
           },
         ),
         centerTitle: true,
-        backgroundColor: kBackgroundColor,
-        title: const Text('History Page',),
+        title: Text(
+          'History Page',
+          style: isDarkMode
+              ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+              : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
+        ),
       ),
       drawer: SideDrawer(),
       body: Padding(
@@ -53,7 +60,14 @@ class _HistoryPageState extends State<HistoryPage> {
                   } else if (state is PetsLoaded) {
                     final adoptedPets = state.pets.where((pet) => pet.isAdopted).toList();
                     if (adoptedPets.isEmpty) {
-                      return const Center(child: Text('No Pet Adopted', style: kSideMenuLightTextStyle));
+                      return Center(
+                        child: Text(
+                          'No Pet Adopted',
+                          style: isDarkMode
+                              ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white)
+                              : theme.textTheme.bodyLarge?.copyWith(color: Colors.black),
+                        ),
+                      );
                     } else {
                       return ListView.builder(
                         itemCount: adoptedPets.length,
@@ -64,7 +78,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                             clipBehavior: Clip.antiAlias,
                             child: Padding(
-                                padding: EdgeInsets.fromLTRB(15, 0 , 15, 0),
+                                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                                 child: GestureDetector(
                                   child: Row(
                                     children: [
@@ -85,9 +99,8 @@ class _HistoryPageState extends State<HistoryPage> {
                                                 child: Hero(
                                                     tag: 'petImage - ${pet.name}',
                                                     child: ClipRRect(
-                                                      child: Image.asset(pet.image,fit: BoxFit.cover,),
-                                                    )
-                                                ),
+                                                      child: Image.asset(pet.image, fit: BoxFit.cover),
+                                                    )),
                                               ),
                                             ),
                                           ],
@@ -104,14 +117,32 @@ class _HistoryPageState extends State<HistoryPage> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(pet.name, style: kSideMenuDarkTextStyle),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  Text(
+                                                    pet.name,
+                                                    style: isDarkMode
+                                                        ? theme.textTheme.headlineSmall?.copyWith(color: Colors.white)
+                                                        : theme.textTheme.headlineSmall?.copyWith(color: Colors.black),
                                                   ),
-                                                  Text(pet.breed, style: kLightSemiBoldTextStyle),
-                                                  Text('${pet.age} years old', style:kLightSemiBoldTextStyle),
-                                                  if(pet.isAdopted)...[
-                                                    Text("Adopted", style:kDarkSemiBoldTextStyle),
+                                                  const SizedBox(height: 5),
+                                                  Text(
+                                                    pet.breed,
+                                                    style: isDarkMode
+                                                        ? theme.textTheme.bodyMedium?.copyWith(color: Colors.white)
+                                                        : theme.textTheme.bodyMedium?.copyWith(color: Colors.black),
+                                                  ),
+                                                  Text(
+                                                    '${pet.age} years old',
+                                                    style: isDarkMode
+                                                        ? theme.textTheme.bodyMedium?.copyWith(color: Colors.white)
+                                                        : theme.textTheme.bodyMedium?.copyWith(color: Colors.black),
+                                                  ),
+                                                  if (pet.isAdopted) ...[
+                                                    Text(
+                                                      "Adopted",
+                                                      style: isDarkMode
+                                                          ? theme.textTheme.bodyMedium?.copyWith(color: Colors.white)
+                                                          : theme.textTheme.bodyMedium?.copyWith(color: Colors.black),
+                                                    ),
                                                   ]
                                                 ],
                                               ),
@@ -119,9 +150,6 @@ class _HistoryPageState extends State<HistoryPage> {
                                           ),
                                         ),
                                       ),
-                                      // if(pet.isAdopted)...[
-                                      //   Text("Adopted", style:kLightSemiBoldTextStyle),
-                                      // ]
                                     ],
                                   ),
                                   onTap: () {
@@ -130,20 +158,33 @@ class _HistoryPageState extends State<HistoryPage> {
                                       createCustomRoute(DetailsPage(pet: pet)),
                                     );
                                   },
-                                )
-                            ),
+                                )),
                           );
                         },
                       );
                     }
                   } else if (state is PetError) {
-                    return Center(child: Text('Error: ${state.message}', style: kSideMenuLightTextStyle));
+                    return Center(
+                      child: Text(
+                        'Error: ${state.message}',
+                        style: isDarkMode
+                            ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white)
+                            : theme.textTheme.bodyLarge?.copyWith(color: Colors.black),
+                      ),
+                    );
                   } else {
-                    return const Center(child: Text('Unexpected State', style: kSideMenuLightTextStyle));
+                    return Center(
+                      child: Text(
+                        'Unexpected State',
+                        style: isDarkMode
+                            ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white)
+                            : theme.textTheme.bodyLarge?.copyWith(color: Colors.black),
+                      ),
+                    );
                   }
                 },
               ),
-            )
+            ),
           ],
         ),
       ),
