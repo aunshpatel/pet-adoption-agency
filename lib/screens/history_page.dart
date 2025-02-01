@@ -60,33 +60,77 @@ class _HistoryPageState extends State<HistoryPage> {
                         itemBuilder: (context, index) {
                           final pet = adoptedPets[index];
                           return Card(
-                            elevation: 6,
-                            child:Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: ListTile(
-                                title: Text(pet.name, style: kFontWeightBold),
-                                subtitle: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(pet.breed, style: kFontWeight500),
-                                    Text('${pet.age} years old', style: kFontWeight500),
-                                  ],
-                                ),
-                                leading: Hero(
-                                  tag: 'petImage - ${pet.name}',
-                                  child: ClipRRect(
-                                    child: Image.asset(pet.image, width: 80, height: 90, fit: BoxFit.cover),
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            clipBehavior: Clip.antiAlias,
+                            child: Padding(
+                                padding: EdgeInsets.fromLTRB(15, 0 , 15, 0),
+                                child: GestureDetector(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius:
+                                                BorderRadius.circular(20),
+                                              ),
+                                              height: 230,
+                                            ),
+                                            SizedBox(
+                                              height: 230,
+                                              child: Center(
+                                                child: Hero(
+                                                    tag: 'petImage - ${pet.name}',
+                                                    child: ClipRRect(
+                                                      child: Image.asset(pet.image,fit: BoxFit.cover,),
+                                                    )
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 25),
+                                          child: SizedBox(
+                                            height: 150,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 15),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(pet.name, style: kSideMenuDarkTextStyle),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(pet.breed, style: kLightSemiBoldTextStyle),
+                                                  Text('${pet.age} years old', style:kLightSemiBoldTextStyle),
+                                                  if(pet.isAdopted)...[
+                                                    Text("Adopted", style:kDarkSemiBoldTextStyle),
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // if(pet.isAdopted)...[
+                                      //   Text("Adopted", style:kLightSemiBoldTextStyle),
+                                      // ]
+                                    ],
                                   ),
-                                ),
-                                trailing: const Text('Adopted', style: kFont16Weight500),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    createCustomRoute(DetailsPage(pet: pet)),
-                                  );
-                                },
-                              ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      createCustomRoute(DetailsPage(pet: pet)),
+                                    );
+                                  },
+                                )
                             ),
                           );
                         },
