@@ -3,17 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pet_adoption_center/screens/history_page.dart';
 import 'package:pet_adoption_center/screens/home_page.dart';
+import 'package:pet_adoption_center/widgets/consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'blocs/pet_bloc.dart';
 import 'blocs/theme_bloc.dart';
+import 'blocs/theme_event.dart';
 import 'blocs/theme_state.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Ensures async code runs before app starts
+  final prefs = await SharedPreferences.getInstance();
+  final isDarkMode = prefs.getBool('isDarkMode') ?? false;
+  final initialTheme = isDarkMode ? ThemeData.dark() : ThemeData.light();
+
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => PetBloc()),  // Your PetBloc
-        BlocProvider(create: (context) => ThemeBloc()),  // Your ThemeBloc
+        BlocProvider(create: (context) => PetBloc()),
+        BlocProvider(create: (context) => ThemeBloc(initialTheme)), // Pass the loaded theme
       ],
       child: const MyApp(),
     ),

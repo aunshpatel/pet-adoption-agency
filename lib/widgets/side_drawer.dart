@@ -107,28 +107,18 @@ class _SideDrawerState extends State<SideDrawer> {
             Divider(),
             ListTile(
               leading: Icon(
-                Icons.brightness_6, // Icon for toggling theme
-                color: isDarkMode ? Colors.white : theme.iconTheme.color, // Icon color based on theme
+                Icons.brightness_6,
+                color: isDarkMode ? Colors.white : theme.iconTheme.color,
                 size: 30,
               ),
-              title: Wrap(
-                children: [
-                  Text(
-                    'Toggle ',
-                    style: isDarkMode
-                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) // Dark mode titleLarge
-                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black), // Light mode titleLarge
-                  ),
-                  Text(
-                    'Theme',
-                    style: isDarkMode
-                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) // Dark mode titleLarge
-                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black), // Light mode titleLarge
-                  ),
-                ],
+              title: Text(
+                'Toggle Theme',
+                style: isDarkMode
+                    ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+                    : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
               ),
               onTap: () {
-                context.read<ThemeBloc>().add(ToggleTheme()); // Trigger theme change
+                context.read<ThemeBloc>().add(ToggleTheme());
               },
             ),
           ],
