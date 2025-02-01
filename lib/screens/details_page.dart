@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
@@ -47,94 +49,99 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
-            /// **Pet Image with Hero Animation**
-            Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              elevation: 4,
-              child: Hero(
-                tag: 'petImage - ${widget.pet.name}',
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    width: double.infinity,
-                    constraints: const BoxConstraints(maxHeight: 300),
-                    child: PhotoView(
-                      imageProvider: AssetImage(widget.pet.image),
-                      backgroundDecoration: const BoxDecoration(color: Colors.transparent),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  elevation: 4,
+                  child: Hero(
+                    tag: 'petImage - ${widget.pet.name}',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        width: double.infinity,
+                        constraints: const BoxConstraints(maxHeight: 300),
+                        child: PhotoView(
+                          imageProvider: AssetImage(widget.pet.image),
+                          backgroundDecoration: const BoxDecoration(color: Colors.transparent),
 
-                      minScale: PhotoViewComputedScale.contained * 1,
-                      maxScale: PhotoViewComputedScale.covered * 2.0,
+                          minScale: PhotoViewComputedScale.contained * 1,
+                          maxScale: PhotoViewComputedScale.covered * 2.0,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-            /// **Pet Details Card**
-            Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              elevation: 3,
-              color: isDarkMode ? Colors.grey[850] : Colors.white,  // Adjust card color based on theme
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    _buildDetailRow('Name:', widget.pet.name),
-                    _buildDetailRow('Animal Type:', widget.pet.animalType),
-                    _buildDetailRow('Breed:', widget.pet.breed),
-                    _buildDetailRow('Age:', '${widget.pet.age} years old'),
-                    _buildDetailRow('Price:', '\$${widget.pet.price}'),
-                  ],
+                /// **Pet Details Card**
+                Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  elevation: 3,
+                  color: isDarkMode ? Colors.grey[850] : Colors.white,  // Adjust card color based on theme
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        _buildDetailRow('Name:', widget.pet.name),
+                        _buildDetailRow('Animal Type:', widget.pet.animalType),
+                        _buildDetailRow('Breed:', widget.pet.breed),
+                        _buildDetailRow('Age:', '${widget.pet.age} years old'),
+                        _buildDetailRow('Price:', '\$${widget.pet.price}'),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(height: 20),
+
+                /// **Adoption Button**
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.pet.isAdopted
+                        ? (isDarkMode ? Colors.grey[500] : Colors.grey[700]) // Adjust button color for adopted pets
+                        : (isDarkMode ? Colors.grey[500] : Colors.grey[700]), // Active button color matches the theme
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  ),
+                  onPressed: widget.pet.isAdopted ? null : () async {
+                    setState(() => _confettiController.play());
+
+                    if (context.read<PetBloc>().state is PetsLoaded) {
+                      final currentState = context.read<PetBloc>().state as PetsLoaded;
+                      if (currentState.pets.contains(widget.pet)) {
+                        final index = currentState.pets.indexOf(widget.pet);
+                        context.read<PetBloc>().add(AdoptPet(index));
+                      } else {
+                        commonAlertBox(context, 'WARNING!', 'Pet not found!');
+                      }
+                    }
+
+                    await Future.delayed(const Duration(seconds: 1));
+                    commonAlertBox(context, 'Adoption Successful!', 'You have adopted ${widget.pet.name}!');
+                  },
+                  child: Text(
+                    widget.pet.isAdopted ? 'Already Adopted' : 'Click to Adopt Me',
+                    style: theme.textTheme.bodyLarge?.copyWith(color: Colors.white),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-
-            /// **Adoption Button**
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: widget.pet.isAdopted
-                    ? (isDarkMode ? Colors.grey[500] : Colors.grey[700]) // Adjust button color for adopted pets
-                    : (isDarkMode ? Colors.grey[500] : Colors.grey[700]), // Active button color matches the theme
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            Align(
+              alignment: Alignment.topCenter,
+              child: ConfettiWidget(
+                confettiController: _confettiController,
+                blastDirection: pi / 2,
+                blastDirectionality: BlastDirectionality.explosive,
+                shouldLoop: false,
+                numberOfParticles: 500,
+                gravity: 0.2,
               ),
-              onPressed: widget.pet.isAdopted ? null : () async {
-                setState(() => _confettiController.play());
-
-                if (context.read<PetBloc>().state is PetsLoaded) {
-                  final currentState = context.read<PetBloc>().state as PetsLoaded;
-                  if (currentState.pets.contains(widget.pet)) {
-                    final index = currentState.pets.indexOf(widget.pet);
-                    context.read<PetBloc>().add(AdoptPet(index));
-                  } else {
-                    commonAlertBox(context, 'WARNING!', 'Pet not found!');
-                  }
-                }
-
-                await Future.delayed(const Duration(seconds: 1));
-                commonAlertBox(context, 'Adoption Successful!', 'You have adopted ${widget.pet.name}!');
-              },
-              child: Text(
-                widget.pet.isAdopted ? 'Already Adopted' : 'Click to Adopt Me',
-                style: theme.textTheme.bodyLarge?.copyWith(color: Colors.white),
-              ),
-            ),
-
-            /// **Confetti Celebration**
-            ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              numberOfParticles: 30,
-              gravity: 0.2,
             ),
           ],
-        ),
+        )
       ),
     );
   }
