@@ -157,7 +157,13 @@ class _HomePageState extends State<HomePage> {
                         final pet = state.pets[index];
                         return Card(
                           elevation: 4,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),  // Rounded corners
+                            side: BorderSide(
+                              color: Colors.blue,  // Border color
+                              width: 2,  // Border width
+                            ),
+                          ),
                           clipBehavior: Clip.antiAlias,
                           child: Padding(
                               padding: EdgeInsets.fromLTRB(15, 0 , 15, 0),
@@ -167,22 +173,22 @@ class _HomePageState extends State<HomePage> {
                                     Expanded(
                                       child: Stack(
                                         children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.transparent,
-                                              borderRadius:
-                                              BorderRadius.circular(20),
-                                            ),
-                                            height: 230,
-                                          ),
+                                          // Container(
+                                          //   decoration: BoxDecoration(
+                                          //     color: Colors.transparent,
+                                          //     borderRadius:
+                                          //     BorderRadius.circular(20),
+                                          //   ),
+                                          //   height: 230,
+                                          // ),
                                           SizedBox(
-                                            height: 230,
+                                            // height: 230,
                                             child: Center(
                                               child: Hero(
-                                                  tag: 'petImage - ${pet.name}',
-                                                  child: ClipRRect(
-                                                    child: Image.asset(pet.image,fit: BoxFit.cover,),
-                                                  )
+                                                tag: 'petImage - ${pet.name}',
+                                                child: ClipRRect(
+                                                  child: Image.asset(pet.image,fit: BoxFit.cover,),
+                                                )
                                               ),
                                             ),
                                           ),
