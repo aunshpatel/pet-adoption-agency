@@ -19,6 +19,8 @@ const kDarkAndW500Font = TextStyle(fontWeight: FontWeight.w500, color: kDarkTitl
 
 const kLightAndW500Font = TextStyle(fontWeight: FontWeight.w500, color: kLightTitleColor);
 
+const kWhiteSize20 = TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white);
+
 const kFontWeight500 = TextStyle(fontWeight: FontWeight.w500,);
 
 const kFont16Weight500 = TextStyle(fontSize:16,fontWeight: FontWeight.w600,);

@@ -117,12 +117,12 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
                 ),
                 const SizedBox(height: 30.0),
                 Material(
-                  color: Color(0XFF697489),
+                  color: widget.pet.isAdopted ? Color(0XFF697489) : kDarkTitleColor,
                   borderRadius: BorderRadius.circular(30.0),
                   child: MaterialButton(
                     minWidth: 150.0,
                     height: 60.0,
-                    child: widget.pet.isAdopted ? const Text('Adopted',  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white)) : const Text('Adopt Me',  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.white)),
+                    child: widget.pet.isAdopted ? const Text('Adopted',  style: kWhiteSize20) : const Text('Click Here To Adopt Me',  style: kWhiteSize20),
                     onPressed: widget.pet.isAdopted ? null : () async {
                       setState(() {
                         _confettiController.play();
