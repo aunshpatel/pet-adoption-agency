@@ -32,16 +32,11 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kBackgroundColor,
         elevation: 3,
         centerTitle: true,
-        title: const Text(
-          'Pet Details',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text('Pet Details'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
