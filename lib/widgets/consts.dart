@@ -45,6 +45,12 @@ const kLightSemiBoldTextStyle = TextStyle(
     fontWeight:FontWeight.w500
 );
 
+const kDarkSemiBoldTextStyle = TextStyle(
+    color: kDarkTitleColor,
+    fontSize: 18,
+    fontWeight:FontWeight.w500
+);
+
 Future<void> commonAlertBox(BuildContext context, String title, String message)  {
   return showDialog<void>(
     context: context,
