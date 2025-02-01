@@ -155,31 +155,79 @@ class _HomePageState extends State<HomePage> {
                       itemCount: state.pets.length,
                       itemBuilder: (context, index) {
                         final pet = state.pets[index];
-                        return ListTile(
-                          title: Text(pet.name, style:kFontWeightBold),
-                          subtitle: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(pet.breed, style: kFontWeight500),
-                              Text('${pet.age} years old', style: kFontWeight500),
-                            ],
+                        return Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          clipBehavior: Clip.antiAlias,
+                          child: Padding(
+                              padding: EdgeInsets.fromLTRB(15, 0 , 15, 0),
+                              child: GestureDetector(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              borderRadius:
+                                              BorderRadius.circular(20),
+                                            ),
+                                            height: 230,
+                                          ),
+                                          SizedBox(
+                                            height: 230,
+                                            child: Center(
+                                              child: Hero(
+                                                  tag: 'petImage - ${pet.name}',
+                                                  child: ClipRRect(
+                                                    child: Image.asset(pet.image,fit: BoxFit.cover,),
+                                                  )
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 25),
+                                        child: SizedBox(
+                                          height: 150,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 15),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(pet.name, style: kSideMenuDarkTextStyle),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(pet.breed, style: kLightSemiBoldTextStyle),
+                                                Text('${pet.age} years old', style:kLightSemiBoldTextStyle),
+                                                if(pet.isAdopted)...[
+                                                  Text("Adopted", style:kDarkSemiBoldTextStyle),
+                                                ]
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // if(pet.isAdopted)...[
+                                    //   Text("Adopted", style:kLightSemiBoldTextStyle),
+                                    // ]
+                                  ],
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    createCustomRoute(DetailsPage(pet: pet)),
+                                  );
+                                },
+                              )
                           ),
-                          leading: Hero(
-                            tag: 'petImage - ${pet.name}',
-                            child: ClipRRect(
-                              child: Image.asset(pet.image,width: 80,height: 90,fit: BoxFit.cover,),
-                            )
-                          ),
-                          trailing: pet.isAdopted
-                              ? const Text('Adopted', style: kFont16Weight500)
-                              : null,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              createCustomRoute(DetailsPage(pet: pet)),
-                            );
-                          },
                         );
                       },
                     );
