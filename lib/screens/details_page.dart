@@ -36,15 +36,39 @@ class _DetailsPageState extends State<DetailsPage> {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
 
+    Future<void> commonAlertBox(BuildContext context, String title, String message)  {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog.adaptive(
+            title: Text(title, style:  isDarkMode ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) : theme.textTheme.titleLarge?.copyWith(color: Colors.black)),
+            content: Text(message, style:  isDarkMode  ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) : theme.textTheme.titleLarge?.copyWith(color: Colors.black)),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    child: Text('OK', style: isDarkMode ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) : theme.textTheme.titleLarge?.copyWith(color: Colors.black)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
         centerTitle: true,
         title: Text(
           'Pet Details',
-          style: isDarkMode
-              ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
-              : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
+          style: isDarkMode ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
@@ -146,7 +170,6 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  /// **Reusable Detail Row**
   Widget _buildDetailRow(String title, String value) {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
@@ -158,15 +181,11 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           Text(
             title,
-            style: isDarkMode
-                ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) // White text in dark mode
-                : theme.textTheme.bodyLarge?.copyWith(color: Colors.black), // Black text in light mode
+            style: isDarkMode ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) : theme.textTheme.bodyLarge?.copyWith(color: Colors.black),
           ),
           Text(
             value,
-            style: isDarkMode
-                ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) // White text in dark mode
-                : theme.textTheme.bodyLarge?.copyWith(color: Colors.black), // Black text in light mode
+            style: isDarkMode ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) : theme.textTheme.bodyLarge?.copyWith(color: Colors.black),
           ),
         ],
       ),

@@ -51,32 +51,6 @@ const kDarkSemiBoldTextStyle = TextStyle(
     fontWeight:FontWeight.w500
 );
 
-Future<void> commonAlertBox(BuildContext context, String title, String message)  {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return AlertDialog.adaptive(
-        title: Text(title, style: kSideMenuDarkTextStyle),
-        content: Text(message, style: kLightSemiBoldTextStyle),
-        actions: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                child: const Text('OK', style: kLightSemiBoldTextStyle),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        ],
-      );
-    },
-  );
-}
-
 Route createCustomRoute(Widget page) {
   return PageRouteBuilder(
     transitionDuration: Duration(milliseconds: 600),
