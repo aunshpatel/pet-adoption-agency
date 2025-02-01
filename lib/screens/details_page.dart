@@ -114,7 +114,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         _buildDetailRow('Animal Type:', widget.pet.animalType),
                         _buildDetailRow('Breed:', widget.pet.breed),
                         _buildDetailRow('Age:', '${widget.pet.age} years old'),
-                        _buildDetailRow('Price:', '\$${widget.pet.price}'),
+                        _buildDetailRow('Price:', '\$ ${widget.pet.price}'),
                       ],
                     ),
                   ),
