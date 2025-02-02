@@ -79,10 +79,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           clipBehavior: Clip.antiAlias,
-                          // Set background color based on theme mode
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.grey[800] // Dark mode background
-                              : Colors.white, // Light mode background
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.grey[800] : Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                             child: GestureDetector(
@@ -166,10 +163,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           clipBehavior: Clip.antiAlias,
-                          // Set background color based on theme mode
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.grey[800] // Dark mode background
-                              : Colors.white, // Light mode background
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.grey[800] : Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                             child: GestureDetector(

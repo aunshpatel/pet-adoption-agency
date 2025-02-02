@@ -13,7 +13,7 @@ import 'blocs/theme_state.dart';
 import 'models/pet_model.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensures async code runs before app starts
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   final isDarkMode = prefs.getBool('isDarkMode') ?? false;
   final initialTheme = isDarkMode ? ThemeData.dark() : ThemeData.light();
@@ -22,7 +22,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => PetBloc()),
-        BlocProvider(create: (context) => ThemeBloc(initialTheme)), // Pass the loaded theme
+        BlocProvider(create: (context) => ThemeBloc(initialTheme)),
       ],
       child: const MyApp(),
     ),
@@ -38,11 +38,11 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           title: 'Pet Adoption',
-          theme: state.themeData,  // Apply dynamic theme from ThemeBloc
-          initialRoute: '/home_page', // Default starting route
+          theme: state.themeData,
+          initialRoute: '/home_page',
           routes: {
-            '/home_page': (context) => const HomePage(),  // Your HomePage route
-            '/history_page': (context) => const HistoryPage(),  // Your HistoryPage route
+            '/home_page': (context) => const HomePage(),
+            '/history_page': (context) => const HistoryPage(),
           },
         );
       },

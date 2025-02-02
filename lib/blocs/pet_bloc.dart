@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/pet_model.dart';
 import '../widgets/consts.dart';
 
@@ -35,9 +34,7 @@ class PetBloc extends Bloc<PetEvent, PetState> {
         if (event.query.isEmpty) {
           filteredPets = allPets;
         } else {
-          filteredPets = allPets
-              .where((pet) => pet.name.toLowerCase().contains(event.query.toLowerCase()))
-              .toList();
+          filteredPets = allPets.where((pet) => pet.name.toLowerCase().contains(event.query.toLowerCase())).toList();
         }
         emit(PetsLoaded(filteredPets));
       }
@@ -52,7 +49,6 @@ class PetBloc extends Bloc<PetEvent, PetState> {
   }
 
   Future<List<Pet>> _fetchPetData() async {
-    // Replace with actual data fetching logic (e.g., API call)
     List<Pet> initialPets = [
       Pet(name: 'Luna', animalType: 'Cat', breed: 'Ragdoll Cat', image: 'assets/images/ragdoll_cat.jpeg', age: 3, price: 200),
       Pet(name: 'Czar', animalType: 'Dog', breed: 'Siberian Husky', image: 'assets/images/siberian_husky.jpeg', age: 2, price: 400),

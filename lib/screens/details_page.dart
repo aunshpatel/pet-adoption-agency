@@ -1,12 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:confetti/confetti.dart';
 import '../blocs/pet_bloc.dart';
 import '../models/pet_model.dart';
-import '../widgets/consts.dart';
+
 
 class DetailsPage extends StatefulWidget {
   final Pet pet;
@@ -100,12 +99,10 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                /// **Pet Details Card**
                 Card(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   elevation: 3,
-                  color: isDarkMode ? Colors.grey[850] : Colors.white,  // Adjust card color based on theme
+                  color: isDarkMode ? Colors.grey[850] : Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -121,12 +118,10 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
                 const SizedBox(height: 20),
 
-                /// **Adoption Button**
+
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: widget.pet.isAdopted
-                        ? (isDarkMode ? Colors.grey[500] : Colors.grey[700]) // Adjust button color for adopted pets
-                        : (isDarkMode ? Colors.grey[500] : Colors.grey[700]), // Active button color matches the theme
+                    backgroundColor: widget.pet.isAdopted ? (isDarkMode ? Colors.grey[500] : Colors.grey[700]) : (isDarkMode ? Colors.grey[500] : Colors.grey[700]),
                     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                   ),

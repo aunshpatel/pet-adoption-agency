@@ -15,21 +15,19 @@ class SideDrawer extends StatefulWidget {
 class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
-    // Get the current theme data to adapt the drawer color and text accordingly
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
 
     return Drawer(
-      backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white, // Adjust background color
+      backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
       elevation: 20,
       child: Padding(
         padding: const EdgeInsets.all(0),
         child: ListView(
           children: [
-            // Home Screen
             DrawerHeader(
               decoration: BoxDecoration(
-                color: isDarkMode ? Colors.grey[850] : null, // Adjust header color based on theme
+                color: isDarkMode ? Colors.grey[850] : null,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,15 +36,15 @@ class _SideDrawerState extends State<SideDrawer> {
                   Text(
                     "The Pet Adoption Agency",
                     style: isDarkMode
-                        ? theme.textTheme.headlineSmall?.copyWith(color: Colors.white) // Dark mode headlineSmall
-                        : theme.textTheme.headlineSmall?.copyWith(color: Colors.black), // Light mode headlineSmall
+                        ? theme.textTheme.headlineSmall?.copyWith(color: Colors.white)
+                        : theme.textTheme.headlineSmall?.copyWith(color: Colors.black),
                   ),
                   SizedBox(height: 4),
                   Text(
                     "Find and adopt your pet here!",
                     style: isDarkMode
-                        ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white) // Dark mode bodyLarge
-                        : theme.textTheme.bodyLarge?.copyWith(color: Colors.black), // Light mode bodyLarge
+                        ? theme.textTheme.bodyLarge?.copyWith(color: Colors.white)
+                        : theme.textTheme.bodyLarge?.copyWith(color: Colors.black),
                   ),
                 ],
               ),
@@ -54,7 +52,7 @@ class _SideDrawerState extends State<SideDrawer> {
             ListTile(
               leading: Icon(
                 Icons.home,
-                color: isDarkMode ? Colors.white : theme.iconTheme.color, // Icon color based on theme
+                color: isDarkMode ? Colors.white : theme.iconTheme.color,
                 size: 30,
               ),
               title: Wrap(
@@ -62,14 +60,14 @@ class _SideDrawerState extends State<SideDrawer> {
                   Text(
                     'Home ',
                     style: isDarkMode
-                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) // Dark mode titleLarge
-                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black), // Light mode titleLarge
+                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                   Text(
                     'Page',
                     style: isDarkMode
-                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) // Dark mode titleLarge
-                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black), // Light mode titleLarge
+                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                 ],
               ),
@@ -81,7 +79,7 @@ class _SideDrawerState extends State<SideDrawer> {
             ListTile(
               leading: Icon(
                 Icons.history,
-                color: isDarkMode ? Colors.white : theme.iconTheme.color, // Icon color based on theme
+                color: isDarkMode ? Colors.white : theme.iconTheme.color,
                 size: 30,
               ),
               title: Wrap(
@@ -89,14 +87,14 @@ class _SideDrawerState extends State<SideDrawer> {
                   Text(
                     'History ',
                     style: isDarkMode
-                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) // Dark mode titleLarge
-                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black), // Light mode titleLarge
+                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                   Text(
                     'Page',
                     style: isDarkMode
-                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white) // Dark mode titleLarge
-                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black), // Light mode titleLarge
+                        ? theme.textTheme.titleLarge?.copyWith(color: Colors.white)
+                        : theme.textTheme.titleLarge?.copyWith(color: Colors.black),
                   ),
                 ],
               ),
