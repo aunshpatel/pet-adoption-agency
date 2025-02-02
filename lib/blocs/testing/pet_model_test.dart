@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../models/pet_model.dart';
 import '../../screens/details_page.dart';
 
+
+//To run(execute) this file:  flutter test lib/blocs/testing/pet_model_test.dart 
 void main() {
   //WIDGET TESTING
   testWidgets('Pet details are correctly displayed', (WidgetTester tester) async {
