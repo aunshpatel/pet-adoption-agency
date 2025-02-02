@@ -3,6 +3,8 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pet_adoption_center/blocs/pet_bloc.dart';
 
+//To run(execute) this file:  flutter test lib/blocs/testing/pet_unit_test.dart
+
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
